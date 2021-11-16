@@ -256,8 +256,8 @@ function buildSpoiler(deckList) {
               
               card.alternateImages = resultData.data.map(function(item) {
                 let alternateImage = {};
-                alternateImage.cardImage = item.card_faces[0].image_uris.border_crop;
-                alternateImage.cardImage2 = item.card_faces[1].image_uris.border_crop;
+                alternateImage.cardImage = item.card_faces[0].image_uris.png;
+                alternateImage.cardImage2 = item.card_faces[1].image_uris.png;
                 alternateImage.set =  item.set_name;
                 return alternateImage;
               });
@@ -269,7 +269,7 @@ function buildSpoiler(deckList) {
               
               card.alternateImages = resultData.data.map(function(item) {
                 let alternateImage = {};
-                alternateImage.cardImage = item.image_uris.border_crop;
+                alternateImage.cardImage = item.image_uris.png;
                 alternateImage.set =  item.set_name;
                 return alternateImage;
               });
