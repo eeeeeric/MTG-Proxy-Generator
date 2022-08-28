@@ -338,6 +338,8 @@ function buildSpoiler(deckList) {
   }
 }
 
+const codeRegex = /\((?<set>\w+)\) (?<num>\d+)$/;
+
 function generateQueryList(userInputArr) {
   
   const queryList = [];
@@ -363,8 +365,14 @@ function generateQueryList(userInputArr) {
     }
 
     // check for 'code' flag
-    if(currentItem.includes('-code')) {
+    if (currentItem.includes('-code')) {
       currentItem = currentItem.replace('-code', '').trim()
+      query.queryEndpoint = 'code';
+    }
+    // Support export format from Moxfield
+    const codeMatch = currentItem.match(codeRegex);
+    if (codeMatch) {
+      currentItem = `${codeMatch.groups.set}/${codeMatch.groups.num}`;
       query.queryEndpoint = 'code';
     }
 
