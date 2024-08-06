@@ -338,7 +338,7 @@ function buildSpoiler(deckList) {
   }
 }
 
-const codeRegex = /\((?<set>\w+)\) (?<num>(\w+-)?\d+(\w+)?)$/;
+const codeRegex = /\((?<set>\w+)\) (?<num>(\w+-)?\d+(\w+)?)\s?(?<modifier>.*)?$/;
 
 function generateQueryList(userInputArr) {
   
@@ -371,8 +371,11 @@ function generateQueryList(userInputArr) {
     }
     // Support export format from Moxfield
     const codeMatch = currentItem.match(codeRegex);
+    let isMoxfield = false;
     if (codeMatch) {
-      currentItem = `${codeMatch.groups.set}/${codeMatch.groups.num}`;
+      isMoxfield = true;
+      // The set code needs to be lower case, but the set number, if it contains letters, must be as provided
+      currentItem = `${codeMatch.groups.set.toLowerCase()}/${codeMatch.groups.num}`;
       query.queryEndpoint = 'code';
     }
 
@@ -386,7 +389,9 @@ function generateQueryList(userInputArr) {
     if(!query.queryEndpoint) {
       query.queryEndpoint = 'named'
     }
-    query.query = currentItem.trim().toLowerCase();
+    if (!isMoxfield) {
+      query.query = currentItem.trim().toLowerCase();
+    }
     console.log(`query #${i} before being pushed is: `, query)
     queryList.push(query);
     console.log(`queryList #${i} is: `, queryList[i])
