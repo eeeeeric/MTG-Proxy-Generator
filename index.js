@@ -338,7 +338,7 @@ function buildSpoiler(deckList) {
   }
 }
 
-const codeRegex = /\((?<set>\w+)\) (?<num>\d+)$/;
+const codeRegex = /\((?<set>\w+)\) (?<num>(\w+-)?\d+(\w+)?)$/;
 
 function generateQueryList(userInputArr) {
   
