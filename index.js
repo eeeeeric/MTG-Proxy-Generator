@@ -391,6 +391,8 @@ function generateQueryList(userInputArr) {
     }
     if (!isMoxfield) {
       query.query = currentItem.trim().toLowerCase();
+    } else {
+      query.query = currentItem;
     }
     console.log(`query #${i} before being pushed is: `, query)
     queryList.push(query);
